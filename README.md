@@ -1,2 +1,2 @@
-# APOE-RetInt-project
-Targeting the retained introns of APOE
+# Advanced Bioinformatics Assignment 3 
+R scripts with github commit
