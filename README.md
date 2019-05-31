@@ -1,2 +1,2 @@
-# Advanced Bioinformatics Assignment 3 
+# Advanced Bioinformatics Assignment
 R scripts with github commit
