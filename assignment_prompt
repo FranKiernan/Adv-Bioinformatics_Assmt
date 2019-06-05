@@ -1,0 +1,60 @@
+7BBG2016 Advanced BioinformaticsR/RStudio assessment
+In this assessment you will be asked to perform a number of tasks in R/RStudio and report them in your own markdown document. 
+[x] Initial task: Create a new markdown document in RStudio, 
+[-] set the title to "Advanced Bioinformatics 2019 assessment", 
+[-] and insert an "author:" tag below the title, followed by your student id. 
+[-] Share your markdown document and html via your github account.
+
+In the following, for each task, 
+[-] create a new heading called "Task X" for task X, 
+[-] and insert a new R code chunk that holds any code required. 
+[-] Make sure to evaluate the expression before saving to include the output in the html file. 
+[-] If you have multiple lines that produce outputs, you can split them into separate code chunks for increase clarity (but it is not necessary to pass the assessment). 
+[-] Please also write out any explanations.
+
+1. 
+[-] Using the sum() function 
+[-] and : operator, 
+[-] write an expression in the codesnippet to evaluate the sum of all integers between 5 and 55. 
+
+2. 
+[-] Write a function called sumfun 
+[-] with one input parameter, called n, 
+[-] that calculates the sum of all integers between 5 and n. 
+[-] Use the function to do the calculation for n = 10, 
+[-] n = 20, 
+[-] and n = 100 and 
+[-] present the results. 
+
+3. The famous Fibonacci series is calculated as the sum of the two preceding members of the sequence, where the first two steps in the sequence are 1, 1. 
+Write an R script 
+[-] using a for loop to calculate 
+[-] and print out the 
+[-] first 12 entries of the Fibonacci series. 
+
+4. With the mtcars dataset bundled with R, 
+[-] use ggplot to generate a box of miles per gallon (in the variable mpg) as a function of the number of gears (in the variable gear). 
+[-] Tip: use the as.factor function to convert the gear variable from numeric into factor. 
+[-] For bonus point: use the fill aesthetic to colour bars by number of gears 
+[-] Tip: see ggplot2 cheat sheet at RStudio.com for different ggplot options). 
+
+5. 
+[-] Using the cars dataset 
+[-] and the function lm, 
+[-] fit a linear relationship between speed (in units of mph) and breaking distance (in units of feet) inthe variable distance.
+
+[-] What are the fitted slope 
+[-] and intercept of the line, 
+[-] and their standard deviations? 
+
+6. 
+[-] Use ggplot to plot the data points from Task 6 and the linear fit. 
+
+7. 
+[-] Again using the cars dataset, now use linear regression (lm) to estimatethe average reaction time for the driver to start breaking (in seconds). 
+[-] To simplify matters you may assume that once breaking commences, breaking distance is proportional to the square of the speed. 
+[-] You may also use that 1 mile = 5280 feet and 1h = 3600 seconds. 
+[-] Note that you'll need to use the I() function in the regression formula to make sure any non-linear terms gets treated literally, rather than as combinations of factors (e.g. I(x^2) for a term quadratic in the variable x). 
+
+[-] Do you get reasonable results? 
+[-] Finally, use ggplot to plot the data points and the fitted relationship. 
