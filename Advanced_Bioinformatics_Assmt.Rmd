@@ -1,0 +1,155 @@
+---
+title: "Advanced Bioinformatics 2019 assessment"
+author: "p1703549"
+date: "3 June 2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+URL: http://rpubs.com/FranKiernan/AdvBioinfo3
+
+
+The GitHub repository for this part of the Advanced Bioinformatics Assessment has been uploaded to my [GitHub Repo](https://github.com/FranKiernan/Adv-Bioinformatics_Assmt) Notebook. 
+
+### Task 1 
+Using sum() function over range 5:55
+```{R}
+sum(5:55)
+```
+
+### Task 2 
+Creating the sumfun function
+```{R}
+sumfun <- function(n){
+  sum(5:n)
+}
+```
+
+
+when n = 10
+sumfun returns 45
+```{R}
+sumfun(10)
+```
+
+when n = 20
+sumfun returns 200
+```{R}
+sumfun(20)
+```
+
+when n = 100
+sumfun returns 5040
+```{R}
+sumfun(100)
+```
+ 
+**sumfun() output for n= 10, 20, 100**
+
+n-value | Output
+------- | ---------
+10    |  45
+20    |  200
+100   |  5040
+
+
+
+### Task 3
+Code for generating Fibonacci series outputs ther first 12 values as:
+1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89, 144
+```{R}
+fibonacci.series <- matrix( , nrow = 12, ncol = 1)
+i <- 1
+for(j in 1:nrow(fibonacci.series)){
+    fibonacci.series[j,] <- i
+    print(i)
+    ifelse(j==1, 
+         i <- 1,
+         i <- fibonacci.series[j,] + fibonacci.series[j-1,])
+  }
+
+```
+
+
+### Task 4
+Box plot (using ggplot) of mpg as a function of the number of gears
+```{R}
+library(ggplot2)
+
+ggplot(mtcars, aes(x = as.factor(gear), y = mpg, fill = factor(gear))) + 
+  geom_boxplot(notch = F) +
+  scale_x_discrete("No. of Gears") +
+  scale_y_continuous("Miles per gallon (MPG)") +
+  ggtitle("MPG as function of number of gears") +
+  theme(plot.title = element_text(hjust =  0.5))
+```
+
+
+### Task 5
+Using cars dataset and the function lm, fit a linear relationship between speed (in units of mph) and breaking distance (in units of feet) in the variable distance. What are the fitted slope and intercept of the line, and their standard deviations? 
+
+* Slope = -17.579
+* Intercept = 3.932
+* Standard deviation of slope = 0.4155
+* Standard deviation of intercept = 6.758
+
+```{R}
+set.seed(454)
+bd.linear.model <- lm(dist ~ speed, data = cars)
+print(bd.linear.model)
+print(summary(bd.linear.model))
+```
+
+
+### Task 6
+Use ggplot to plot the data points from Task 6 and the linear fit. 
+```{R}
+plot(dist ~ speed, data = cars, xlab = "Speed (MPH)", ylab = "Distance (feet)", main = "Relationship between speed and distance")
+abline(bd.linear.model)
+```
+
+
+### Task 7
+Again using the cars dataset, now use linear regression (lm) to estimate the average reaction time for the driver to start breaking (in seconds). To simplify matters you may assume that once breaking commences, breaking distance is proportional to the square of the speed. You may also use that 1 mile = 5280 feet and 1h = 3600 seconds. Note that you'll need to use the I() function in the regression formula to make sure any non-linear terms gets treated literally, rather than as combinations of factors (e.g. I(x^2) for a term quadratic in the variable x). Do you get reasonable results? Finally, use ggplot to plot the data points and the fitted relationship.  
+
+```{R}
+#boxplot(cars, horizontal = T)         # 1 outlier (~120ft) will skew results slightly negatively 
+cars.cp <- cars
+
+quad.reg <- lm(dist ~ speed + I(speed^2), data=cars.cp)
+quad.reg$coefficients
+cars.cp$speed.ftSec <- (cars.cp$speed/3600)*5280  # conversion mph to ft/sec
+quad.reg2 <- lm(dist ~ 0 + speed.ftSec + I(speed.ftSec^2), data=cars.cp)
+summary(quad.reg2) 
+quad.reg2$coefficients[1]
+
+#mean(cars.cp$dist)
+
+```
+
+**Results appear reasonable** 
+* The average reaction time of 0.85s seemed high since the expected average reaction time for humans responding to visual stimuli is ~0.25sec and ~0.17 for audio stimuli 
+* Considering these were 1920s cars additional delayed braking response for engaging the mechanical braking systems makes the average reaction time plausible.
+
+* t-table shows r values to be significant at 0.05% and 1.9% respectively for beta-1 and -2 respectively.
+* Anova table shows the p-value to be significant at >0.05
+* Adjusted R-squared value indicates that 91.3% of variability in the data will be caught with this model.
+
+
+```{R}
+ggplot(cars.cp, aes(x = speed.ftSec, y = dist)) + 
+  geom_point(color = "navy", size = 1.0) + 
+  geom_smooth(method = "lm", formula = "y ~ 0 + x + I(x^2)",  color="chartreuse", fullrange='TRUE') +
+#  geom_point(data = cars.cp$brake.dist)
+  labs(
+    title = "Braking Reaction Time",  
+    y = "Stopping Distance", 
+    x = "Speed (ft/s)") +
+  theme(plot.title = element_text(hjust =  0.5))
+    
+
+```
+
