@@ -1,2 +1,2 @@
 # Advanced Bioinformatics Assignment
-R scripts with github commit
+Markdown document for this assessment can be viewed at http://rpubs.com/FranKiernan/AdvBioinfo3
